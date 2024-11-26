@@ -25,8 +25,7 @@ public final class Constants {
     public static final int kDriverControllerPortBT = 4;
     public static final int kManipulatorControllerPortUSB = 3;
     public static final int kManipulatorControllerPortBT = 5;
-    public static final double kManipulatorJoystickDeadband =
-     0.05;
+    public static final double kManipulatorJoystickDeadband = 0.05;
     public static final double kDriverControllerDeadband = 0.07;
     public static final double kMaxVelTele = Units.feetToMeters(15);
     public static final double kMaxAccelTele = kMaxVelTele * 3; //idk what this should be
@@ -47,5 +46,11 @@ public final class Constants {
 
     public static final Transform3d frontCamRobotToCam = new Transform3d(Units.inchesToMeters(15), Units.inchesToMeters(0), Units.inchesToMeters(6.5), new Rotation3d(Math.PI,Math.PI/6,0));
     public static final Transform3d backCamRobotToCam = new Transform3d(Units.inchesToMeters(-10), Units.inchesToMeters(-1), Units.inchesToMeters(18), new Rotation3d(0, 0, Math.PI));
+
+    public static final double kPturning = 0.05;
+  }
+
+  public static class PIDConstants {
+    
   }
 }

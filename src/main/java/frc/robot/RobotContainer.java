@@ -8,11 +8,21 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
 import lib.frc706.cyberlib.commands.XboxDriveCommand;
 import lib.frc706.cyberlib.subsystems.SwerveSubsystem;
+import frc.robot.commands.*;
+import frc.robot.AutoCommandManager;
+
 
 import java.io.File;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -31,8 +41,10 @@ public class RobotContainer {
 
   private Command teleopCommand;
   
+  
   private final CommandXboxController driverController;
   private final CommandXboxController manipulatorController;
+  private AutoCommandManager autoManager;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -50,6 +62,8 @@ public class RobotContainer {
     
     swerveSubsystem = new SwerveSubsystem(swerveJsonDirectory, OperatorConstants.kMaxVelTele,
         SwerveConstants.pathFollowerConfig);
+    swerveSubsystem.swerveDrive.getGyro().setInverted(true);
+    autoManager = new AutoCommandManager(swerveSubsystem);
 
     teleopCommand = new XboxDriveCommand(driverController,
         swerveSubsystem,
@@ -85,11 +99,39 @@ public class RobotContainer {
           swerveSubsystem.recenter();
           System.out.println("resetting robot pose");
         })); // zero heading and reset position to (0,0) if A is pressed for 2 seconds
+
+    driverController.b().whileTrue(new ToSpeakerCommand(swerveSubsystem)
+      );
+    driverController.rightBumper().whileTrue(new TrackSpeakerCommand(swerveSubsystem, 
+      () -> -driverController.getLeftX(),
+      () -> -driverController.getLeftY(), () -> driverController.getRightTriggerAxis() 
+    ));
   } 
 
   public Command getTeleopCommand() {
     swerveSubsystem.swerveDrive.setHeadingCorrection(false);
     return teleopCommand;
   }
+
+    /*public Command getAutonomousCommand() {
+    // This method loads the auto when it is called, however, it is recommended
+    // to first load your paths/autos when code starts, then return the
+    // pre-loaded auto/path
+    SmartDashboard.putString("Auto Selected", "Test Auto");
+    return new PathPlannerAuto("Test Auto");
+  }*/
+
+    public Command getAutonomousCommand() {
+      Command autoCommand = autoManager.getAutoManagerSelected();
+      /*if(autoManager.getAutoManagerSelected().toString().equals("com.pathplanner.lib.commands.PathPlannerAuto@66af20") || autoManager.getAutoManagerSelected().toString().equals("com.pathplanner.lib.commands.PathPlannerAuto@12a209c") || autoManager.getAutoManagerSelected().toString().equals("com.pathplanner.lib.commands.PathPlannerAuto@93b025") || autoManager.getAutoManagerSelected().toString().equals("com.pathplanner.lib.commands.PathPlannerAuto@505305")){ //MStage4, MStage3, MAmp3, M2
+        swerveSubsystem.setPose(new Rotation2d(), new Pose2d(new Translation2d(1.37, 5.56), new Rotation2d())); 
+      } else if(autoManager.getAutoManagerSelected().toString().equals("com.pathplanner.lib.commands.PathPlannerAuto@7ddf94")){ //Amp2
+        swerveSubsystem.setPose(new Rotation2d(), new Pose2d(new Translation2d(0.76, 6.78), new Rotation2d())); 
+      } */
+
+      SmartDashboard.putString("Auto Selected", autoManager.getAutoManagerSelected().toString());
+      return autoCommand;
+    } 
+  
 
 }
