@@ -1,10 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.*;
 import lib.frc706.cyberlib.subsystems.LimelightHelpers;
 import lib.frc706.cyberlib.subsystems.SwerveSubsystem;
 
@@ -31,7 +29,8 @@ public class ToSpeakerCommand extends Command {
         double kPturning = 1;
         double KpDistance = 2;
         double distance =  LimelightHelpers.getTargetPose3d_RobotSpace("limelight").getZ();
-        double distance_error = distance-1.137;
+        double desiredDistance = 0.5;
+        double distance_error = distance-desiredDistance;
         ySpeed = 0;
 
         //Set turning speed and y speed based off of apriltag
