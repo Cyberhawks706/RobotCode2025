@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import lib.frc706.cyberlib.subsystems.LimelightHelpers;
@@ -36,9 +35,6 @@ public class ToSpeakerCommand extends Command {
         //Set turning speed and y speed based off of apriltag
         turningSpeed = kPturning*LimelightHelpers.getTargetPose3d_RobotSpace("limelight").getX();
         xSpeed = LimelightHelpers.getTV("limelight") ? MathUtil.clamp(KpDistance*distance_error, -3, 3) : 0;
-        //Set speeds to chassis
-        ChassisSpeeds chassisSpeeds;
-        chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
         
         //Output each module states to wheels
         swerveSubsystem.driveRobotOriented(swerveSubsystem.swerveDrive.swerveController.getRawTargetSpeeds(xSpeed, ySpeed, turningSpeed));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          //penis

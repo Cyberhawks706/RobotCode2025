@@ -4,8 +4,7 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.ReplanningConfig;
+import com.pathplanner.lib.config.PIDConstants;
 
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -36,21 +35,24 @@ public final class Constants {
   public static class SwerveConstants {
     public static final double wheelBase = Units.inchesToMeters(29);
     public static final double driveBaseRadius = Math.sqrt(wheelBase * wheelBase * 2) / 2;
-    public static final ReplanningConfig replanningConfig = new ReplanningConfig(true, true);
     
     public static final double kMaxVelAuto = OperatorConstants.kMaxVelTele/10;
     public static final double kMaxAccelAuto = OperatorConstants.kMaxAccelTele/10;
     public static final double  kMaxAngularVelAuto = OperatorConstants.kMaxAngularVelTele/5;
     public static final double kMaxAngularAccelAuto = OperatorConstants.kMaxAngularAccelTele/5;
-    public static final HolonomicPathFollowerConfig pathFollowerConfig = new HolonomicPathFollowerConfig(kMaxVelAuto, driveBaseRadius, replanningConfig);
 
     public static final Transform3d frontCamRobotToCam = new Transform3d(Units.inchesToMeters(15), Units.inchesToMeters(0), Units.inchesToMeters(6.5), new Rotation3d(Math.PI,Math.PI/6,0));
     public static final Transform3d backCamRobotToCam = new Transform3d(Units.inchesToMeters(-10), Units.inchesToMeters(-1), Units.inchesToMeters(18), new Rotation3d(0, 0, Math.PI));
 
-    public static final double kPturning = 0.05;
+    
   }
 
-  public static class PIDConstants {
-    
+  public static class PID {
+    public static final double kPTranslation = 2.5;
+    public static final double kITranslation = 0.0;
+    public static final double kDTranslation = 0.0;
+    public static final PIDConstants kDefaultPIDConstants = new PIDConstants(kPTranslation, kITranslation, kDTranslation);
+
+    public static final double kPturning = 0.05;
   }
 }

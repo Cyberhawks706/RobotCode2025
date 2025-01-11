@@ -4,8 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.SwerveConstants;
+import static frc.robot.Constants.*;
 import lib.frc706.cyberlib.commands.XboxDriveCommand;
 import lib.frc706.cyberlib.subsystems.SwerveSubsystem;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -53,8 +52,7 @@ public class RobotContainer {
     }
     File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(), "swerve");
     
-    swerveSubsystem = new SwerveSubsystem(swerveJsonDirectory, OperatorConstants.kMaxVelTele,
-        SwerveConstants.pathFollowerConfig);
+    swerveSubsystem = new SwerveSubsystem(swerveJsonDirectory, OperatorConstants.kMaxVelTele, PID.kDefaultPIDConstants);
     swerveSubsystem.swerveDrive.getGyro().setInverted(true);
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     autoManager = new AutoCommandManager(swerveSubsystem);

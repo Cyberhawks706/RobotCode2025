@@ -43,7 +43,7 @@ public class TrackSpeakerCommand extends Command {
         //deadband
 		x = MathUtil.applyDeadband(x, OperatorConstants.kDriverControllerDeadband);
         y = MathUtil.applyDeadband(y, OperatorConstants.kDriverControllerDeadband);
-        rot = -SwerveConstants.kPturning*LimelightHelpers.getTargetPose3d_RobotSpace("limelight").getX() * 4.5;
+        rot = -PID.kPturning*LimelightHelpers.getTargetPose3d_RobotSpace("limelight").getX() * 4.5;
 
         //make driving smoother
 		x = Math.copySign(x * x, x);
