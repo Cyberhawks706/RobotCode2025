@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import lib.frc706.cyberlib.subsystems.LimelightHelpers;
 import lib.frc706.cyberlib.subsystems.SwerveSubsystem;
 
-public class ToSpeakerCommand extends Command {
+public class ToReefCommand extends Command {
 
     private final SwerveSubsystem swerveSubsystem;
 
-    public ToSpeakerCommand(SwerveSubsystem swerveSubsystem) {
+    public ToReefCommand(SwerveSubsystem swerveSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
         addRequirements(swerveSubsystem);
     }
@@ -37,7 +37,7 @@ public class ToSpeakerCommand extends Command {
         xSpeed = LimelightHelpers.getTV("limelight") ? MathUtil.clamp(KpDistance*distance_error, -3, 3) : 0;
         
         //Output each module states to wheels
-        swerveSubsystem.driveRobotOriented(swerveSubsystem.swerveDrive.swerveController.getRawTargetSpeeds(xSpeed, ySpeed, turningSpeed));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          //penis
+        swerveSubsystem.driveRobotOriented(swerveSubsystem.swerveDrive.swerveController.getRawTargetSpeeds(xSpeed, ySpeed, turningSpeed));
 
     }
 

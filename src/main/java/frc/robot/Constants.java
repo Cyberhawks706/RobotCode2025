@@ -53,6 +53,7 @@ public final class Constants {
     public static final double kDTranslation = 0.0;
     public static final PIDConstants kDefaultPIDConstants = new PIDConstants(kPTranslation, kITranslation, kDTranslation);
 
-    public static final double kPturning = 0.05;
+    public static final double kPAutoTurning = 1.5;
+    public static final double kIAutoTurning = 0;
   }
 }

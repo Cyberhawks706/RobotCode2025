@@ -9,6 +9,8 @@ import lib.frc706.cyberlib.commands.XboxDriveCommand;
 import lib.frc706.cyberlib.subsystems.SwerveSubsystem;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.PID;
 import frc.robot.commands.*;
 import java.io.File;
 
@@ -91,13 +93,17 @@ public class RobotContainer {
           swerveSubsystem.recenter();
           System.out.println("resetting robot pose");
         })); // zero heading and reset position to (0,0) if A is pressed for 2 seconds
-
-    driverController.b().whileTrue(new ToSpeakerCommand(swerveSubsystem)
+    
+    driverController.x().whileTrue(new TrackReefCommand(swerveSubsystem, 
+        () -> -driverController.getLeftX(),
+        () -> -driverController.getLeftY() 
+    ));
+    driverController.b().whileTrue(new ToReefCommand(swerveSubsystem)
       );
-    driverController.rightBumper().whileTrue(new TrackSpeakerCommand(swerveSubsystem, 
+    /*driverController.rightBumper().whileTrue(new TrackReefCommand(swerveSubsystem, 
       () -> -driverController.getLeftX(),
       () -> -driverController.getLeftY(), () -> driverController.getRightTriggerAxis() 
-    ));
+    ));*/
   } 
 
   public Command getTeleopCommand() {

@@ -45,10 +45,10 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    System.out.println("frontLeft: " + m_robotContainer.swerveSubsystem.swerveDrive.getModulePositions()[0].angle.getDegrees());
-    System.out.println("frontRight: " + m_robotContainer.swerveSubsystem.swerveDrive.getModulePositions()[1].angle.getDegrees());
-    System.out.println("backLeft: " + m_robotContainer.swerveSubsystem.swerveDrive.getModulePositions()[2].angle.getDegrees());
-    System.out.println("backRight: " + m_robotContainer.swerveSubsystem.swerveDrive.getModulePositions()[3].angle.getDegrees());
+    // System.out.println("frontLeft: " + m_robotContainer.swerveSubsystem.swerveDrive.getModulePositions()[0].angle.getDegrees());
+    // System.out.println("frontRight: " + m_robotContainer.swerveSubsystem.swerveDrive.getModulePositions()[1].angle.getDegrees());
+    // System.out.println("backLeft: " + m_robotContainer.swerveSubsystem.swerveDrive.getModulePositions()[2].angle.getDegrees());
+    // System.out.println("backRight: " + m_robotContainer.swerveSubsystem.swerveDrive.getModulePositions()[3].angle.getDegrees());
     //System.out.println("odom heading: " + m_robotContainer.swerveSubsystem.swerveDrive.getOdometryHeading());
 
   }
