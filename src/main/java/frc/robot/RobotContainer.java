@@ -9,8 +9,9 @@ import lib.frc706.cyberlib.commands.XboxDriveCommand;
 import lib.frc706.cyberlib.subsystems.SwerveSubsystem;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.IOConstants;
 import frc.robot.Constants.PID;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.*;
 import java.io.File;
 
@@ -42,19 +43,19 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    if (DriverStation.isJoystickConnected(OperatorConstants.kDriverControllerPortBT)) {
-      driverController = new CommandXboxController(OperatorConstants.kDriverControllerPortBT);
+    if (DriverStation.isJoystickConnected(IOConstants.kDriverControllerPortBT)) {
+      driverController = new CommandXboxController(IOConstants.kDriverControllerPortBT);
     } else {
-      driverController = new CommandXboxController(OperatorConstants.kDriverControllerPortUSB);
+      driverController = new CommandXboxController(IOConstants.kDriverControllerPortUSB);
     }
-    if (DriverStation.isJoystickConnected(OperatorConstants.kManipulatorControllerPortBT)) {
-      manipulatorController = new CommandXboxController(OperatorConstants.kManipulatorControllerPortBT);
+    if (DriverStation.isJoystickConnected(IOConstants.kManipulatorControllerPortBT)) {
+      manipulatorController = new CommandXboxController(IOConstants.kManipulatorControllerPortBT);
     } else {
-      manipulatorController = new CommandXboxController(OperatorConstants.kManipulatorControllerPortUSB);
+      manipulatorController = new CommandXboxController(IOConstants.kManipulatorControllerPortUSB);
     }
     File swerveJsonDirectory = new File(Filesystem.getDeployDirectory(), "swerve");
     
-    swerveSubsystem = new SwerveSubsystem(swerveJsonDirectory, OperatorConstants.kMaxVelTele, PID.kDefaultPIDConstants);
+    swerveSubsystem = new SwerveSubsystem(swerveJsonDirectory, SwerveConstants.kMaxVelTele, PID.kDefaultPIDConstants);
     swerveSubsystem.swerveDrive.getGyro().setInverted(true);
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     autoManager = new AutoCommandManager(swerveSubsystem);
@@ -62,11 +63,11 @@ public class RobotContainer {
     teleopCommand = new XboxDriveCommand(driverController,
         swerveSubsystem,
         () -> true,
-        OperatorConstants.kDriverControllerDeadband,
-        OperatorConstants.kMaxVelTele,
-        OperatorConstants.kMaxAccelTele,
-        OperatorConstants.kMaxAngularVelTele,
-        OperatorConstants.kMaxAngularAccelTele).withInterruptBehavior(InterruptionBehavior.kCancelSelf);
+        IOConstants.kDriverControllerDeadband,
+        SwerveConstants.kMaxVelTele,
+        SwerveConstants.kMaxAccelTele,
+        SwerveConstants.kMaxAngularVelTele,
+        SwerveConstants.kMaxAngularAccelTele).withInterruptBehavior(InterruptionBehavior.kCancelSelf);
         swerveSubsystem.setDefaultCommand(getTeleopCommand());
 
     configureBindings();
